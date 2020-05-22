@@ -91,7 +91,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         userMapper.insert(user);
     }
     /**
-     *外部方法开启了事务，内部方法没有开启事务，当内部方法出现异常，两者都会回滚
+     *外部方法开启了事务，内部方法没有开启事务，当内部方法出现异常，两者都会回滚;
+     * 另外在这种情况下，当内部方法没有出现异常，外部方法出现异常，两者也会回滚
      */
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
