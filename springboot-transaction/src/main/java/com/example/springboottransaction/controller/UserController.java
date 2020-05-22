@@ -29,4 +29,20 @@ public class UserController {
     public void test2(){
         userService.test2();
     }
+
+    @GetMapping("/test3")
+    public void test3(){
+        userService.test3();
+    }
+
+    @GetMapping("/test4")
+    public void test4(){
+        userService.test4();
+    }
+
+    @GetMapping("/test6")
+    public void test6(){
+        userService.test6();
+    }
+
 }

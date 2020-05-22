@@ -8,5 +8,10 @@
 GET http://localhost:8080/test1
 ###
 GET http://localhost:8080/test2
-
+###
+GET http://localhost:8080/test3
+###
+GET http://localhost:8080/test4
+###
+GET http://localhost:8080/test6
 ###

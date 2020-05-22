@@ -1,10 +1,12 @@
 package com.example.springboottransaction.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.springboottransaction.entity.User;
 import com.example.springboottransaction.mapper.UserMapper;
 import com.example.springboottransaction.service.IUserService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -17,6 +19,9 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
+
+    @Autowired
+    private UserMapper userMapper;
 
     @Override
     /**
@@ -38,7 +43,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRED)
     public void test2(){
         User user = new User();
         user.setUsername("fyb1");
@@ -48,4 +53,66 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         int i=1/0;
         save(user);
     }
+
+    /**
+     * 外部方法没有开启事务
+     * 内部方法开启了事务
+     * 外部方法和内部方法都没有回滚，是否是因为没有直接操作dao层的mapper的缘故呢
+     */
+    @Override
+    public void test3(){
+        User user = new User();
+        user.setUsername("fyb3");
+        save(user);
+        test2();
+    }
+
+    @Override
+    public void test4(){
+        User user = new User();
+        user.setUsername("fyb1");
+        userMapper.insert(user);
+        test5();
+    }
+
+    /**
+     * 结论是无论是操作mapper还是操作继承于接口的默认方法
+     * 外部方法没有开启事务，内部方法开启了事务，两者都无法回滚
+     */
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void test5(){
+        User user = new User();
+        user.setUsername("fyb2");
+        userMapper.insert(user);
+        //设置异常
+        int i=1/0;
+        user.setUsername("fyb3");
+        userMapper.insert(user);
+    }
+    /**
+     *外部方法开启了事务，内部方法没有开启事务，当内部方法出现异常，两者都会回滚
+     */
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void test6(){
+        User user = new User();
+        user.setUsername("fyb1");
+        save(user);
+        test7();
+        user.setUsername("fyb2");
+        save(user);
+    }
+
+    @Override
+    public void test7(){
+        User user = new User();
+        user.setUsername("fyb3");
+        save(user);
+        //设置异常
+        int i=1/0;
+        user.setUsername("fyb4");
+        save(user);
+    }
+
 }
