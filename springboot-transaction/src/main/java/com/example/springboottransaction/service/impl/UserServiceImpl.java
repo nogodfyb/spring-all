@@ -57,7 +57,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     /**
      * 外部方法没有开启事务
      * 内部方法开启了事务
-     * 外部方法和内部方法都没有回滚，是否是因为没有直接操作dao层的mapper的缘故呢
+     * 外部方法和内部方法都没有回滚，是否是因为没有直接操作dao层的mapper的缘故呢，不是
+     * 之所以内部方法也没有回滚，是因为同类调用，动态代理失效
      */
     @Override
     public void test3(){
