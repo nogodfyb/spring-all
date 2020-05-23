@@ -47,10 +47,46 @@ public class MyController {
 
     /**
      * redisTemplate存储Hash
+     * 类似于HashMap
      */
     @GetMapping("/test4")
     public void test4(){
-        redisTemplate.opsForHash().put("myHash","myHashKey","myHashValue");
+        redisTemplate.opsForHash().put("myHash1","myHashKey1","myHashValue1");
+        redisTemplate.opsForHash().put("myHash1","myHashKey2","myHashValue2");
+        redisTemplate.opsForHash().put("myHash1","myHashKey3","myHashValue3");
+        //redisTemplate.opsForHash().putAll("myHash1",new HashMap());
     }
 
+    /**
+     * redisTemplate存储list,从左边插入，类似往数组第一个位置插入数据，其余依次往后移
+     * 不过redis的list本质是一个双向链表
+     */
+    @GetMapping("/test5")
+    public void test5(){
+        for (int i = 0; i < 10; i++) {
+            redisTemplate.opsForList().leftPush("myList","aaa"+i);
+        }
+    }
+
+    /**
+     * redisTemplate存储set
+     * 类似于Java的HashSet，特点是无序，不重复
+     */
+    @GetMapping("/test6")
+    public void test6(){
+        for (int i = 0; i < 10; i++) {
+            redisTemplate.opsForSet().add("mySet","aaa"+i);
+        }
+    }
+
+    /**
+     * redisTemplate存储sorted set
+     * 特点是有序，不重复
+     */
+    @GetMapping("/test7")
+    public void test7(){
+        for (int i = 0; i < 10; i++) {
+            redisTemplate.opsForZSet().add("mySortedSet","aaa"+i,i);
+        }
+    }
 }
