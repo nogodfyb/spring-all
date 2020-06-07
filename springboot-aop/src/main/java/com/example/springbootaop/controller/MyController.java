@@ -17,7 +17,7 @@ public class MyController {
 
     @GetMapping("/test")
     @Log("方法test")
-    public List<Student> test(){
+    public List<Student> test(String name){
         return studentService.test();
     }
 }

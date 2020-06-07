@@ -31,7 +31,7 @@ public class SysLog implements Serializable {
 
     private String operation;
 
-    private LocalDateTime time;
+    private Integer time;
 
     private String method;
 
