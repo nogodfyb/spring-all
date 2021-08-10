@@ -17,4 +17,9 @@ public class MyController {
     public void test() {
         myService.test();
     }
+
+    @GetMapping("/test2")
+    public void test2() {
+        throw new ApiException();
+    }
 }
