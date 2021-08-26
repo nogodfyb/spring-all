@@ -30,4 +30,7 @@ public interface IUserService extends IService<User> {
 
     @Transactional(propagation = Propagation.REQUIRED)
     void test7();
+
+    @Transactional
+    void test8();
 }
