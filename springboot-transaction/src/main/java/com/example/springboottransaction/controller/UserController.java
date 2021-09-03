@@ -20,34 +20,10 @@ public class UserController {
     @Autowired
     private IUserService userService;
 
-    @GetMapping("/test1")
+    @GetMapping("/test")
     public void test1() {
-        userService.test1();
+        userService.test();
     }
 
-    @GetMapping("/test2")
-    public void test2() {
-        userService.test2();
-    }
-
-    @GetMapping("/test3")
-    public void test3() {
-        userService.test3();
-    }
-
-    @GetMapping("/test4")
-    public void test4() {
-        userService.test4();
-    }
-
-    @GetMapping("/test6")
-    public void test6() {
-        userService.test6();
-    }
-
-    @GetMapping("/test8")
-    public void test8() {
-        userService.test8();
-    }
 
 }
