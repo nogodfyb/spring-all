@@ -4,13 +4,10 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.springboottransaction.entity.User;
 import com.example.springboottransaction.mapper.UserMapper;
 import com.example.springboottransaction.service.IUserService;
-import org.apache.ibatis.session.SqlSessionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.sql.SQLException;
 
 /**
  * <p>
@@ -26,21 +23,27 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Autowired
     private UserMapper userMapper;
 
+
     @Override
-    public void test() {
+    public void saveParent() {
 
-
-    }
-
-    public void saveUser1(){
         User user = new User();
-        user.setUsername("user1");
+        user.setUsername("parent");
+        userMapper.insert(user);
+
     }
 
-
-
-
-
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void saveUser() {
+        User user1 = new User();
+        user1.setUsername("user1");
+        User user2 = new User();
+        user2.setUsername("user2");
+        userMapper.insert(user1);
+        userMapper.insert(user2);
+        int i = 1 / 0;
+    }
 
 
 }

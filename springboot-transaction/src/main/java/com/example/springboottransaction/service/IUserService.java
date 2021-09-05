@@ -1,9 +1,7 @@
 package com.example.springboottransaction.service;
 
-import com.example.springboottransaction.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
+import com.example.springboottransaction.entity.User;
 
 /**
  * <p>
@@ -15,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
  */
 public interface IUserService extends IService<User> {
 
-    void test();
 
+    void saveParent();
+
+    void saveUser();
 }

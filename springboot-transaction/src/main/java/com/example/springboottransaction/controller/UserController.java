@@ -1,7 +1,7 @@
 package com.example.springboottransaction.controller;
 
 
-import com.example.springboottransaction.service.IUserService;
+import com.example.springboottransaction.service.impl.TestTransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,11 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     @Autowired
-    private IUserService userService;
+    private TestTransactionService service;
 
     @GetMapping("/test")
     public void test1() {
-        userService.test();
+        service.test();
     }
 
 
