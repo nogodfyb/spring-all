@@ -25,6 +25,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void saveParent() {
 
         User user = new User();
@@ -37,7 +38,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Transactional(propagation = Propagation.NEVER)
     public void saveUser() {
 
         User user1 = new User();
@@ -48,7 +49,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         userMapper.insert(user2);
 
         //异常3
-        int i = 1 / 0;
+        //int i = 1 / 0;
 
     }
 
