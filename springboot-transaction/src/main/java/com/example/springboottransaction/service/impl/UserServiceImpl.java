@@ -31,18 +31,25 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         user.setUsername("parent");
         userMapper.insert(user);
 
+        //异常2
+        //int i = 1 / 0;
+
     }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRED)
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void saveUser() {
+
         User user1 = new User();
         user1.setUsername("user1");
         User user2 = new User();
         user2.setUsername("user2");
         userMapper.insert(user1);
         userMapper.insert(user2);
+
+        //异常3
         int i = 1 / 0;
+
     }
 
 
