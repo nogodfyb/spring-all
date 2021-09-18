@@ -1,6 +1,7 @@
 package com.example.springboottransaction.controller;
 
 
+import com.example.springboottransaction.service.SelfCallService;
 import com.example.springboottransaction.service.impl.TestTransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,9 +21,17 @@ public class UserController {
     @Autowired
     private TestTransactionService service;
 
+    @Autowired
+    private SelfCallService selfCallService;
+
     @GetMapping("/test")
     public void test1() {
         service.test();
+    }
+
+    @GetMapping("/test2")
+    public void test2() {
+        selfCallService.test();
     }
 
 
