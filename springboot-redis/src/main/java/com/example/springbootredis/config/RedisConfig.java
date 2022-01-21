@@ -16,7 +16,7 @@ public class RedisConfig {
 
     @Bean
     @ConditionalOnMissingBean(name = "redisTemplate")
-    public RedisTemplate<String, Object> redisTemplate(
+    public RedisTemplate<Object, Object> redisTemplate(
             RedisConnectionFactory redisConnectionFactory) {
 
         Jackson2JsonRedisSerializer<Object> jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer<Object>(Object.class);
@@ -25,7 +25,7 @@ public class RedisConfig {
         om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
         jackson2JsonRedisSerializer.setObjectMapper(om);
 
-        RedisTemplate<String, Object> template = new RedisTemplate<String, Object>();
+        RedisTemplate<Object, Object> template = new RedisTemplate<Object, Object>();
         template.setConnectionFactory(redisConnectionFactory);
         template.setKeySerializer(jackson2JsonRedisSerializer);
         template.setValueSerializer(jackson2JsonRedisSerializer);
